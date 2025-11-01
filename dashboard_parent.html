@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inno Kid - Espace Parent</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Tajawal', 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f9ce69, #65b7f3);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 40px;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        h1 {
+            color: #d81b60;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+        }
+        .section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .child-info {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            direction: ltr;
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        tbody tr:hover {
+            background-color: #e8f5e9;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .progress {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        .good { background-color: #4caf50; }
+        .medium { background-color: #ff9800; }
+        .low { background-color: #f44336; }
+        .child-selector {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+        .chart-container {
+            max-width: 100%;
+            height: 400px;
+            margin: 30px auto;
+        }
+        .back-button {
+            background-color: #9e9e9e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #757575;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            th, td { font-size: 0.9rem; padding: 8px; }
+            .chart-container { height: 300px; }
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Logo Inno Kid" class="logo" />
+            <h1>Espace Parent - Inno Kid</h1>
+        </div>
+
+        <div id="parents-section" class="section">
+            <h2>Dossier de l'Enfant</h2>
+            <div class="child-selector">
+                <select id="child-select" onchange="updateParentView()">
+                    <option value="child1">Ahmad Ali</option>
+                    <option value="child2">Layla Mohammed</option>
+                    <option value="child3">Youssef Khaled</option>
+                </select>
+            </div>
+            <div class="child-info">
+                <h3 id="child-name">Ahmad Ali</h3>
+                <p id="child-age">Âge: 6 ans</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="parentsChart" aria-label="Statistiques de progression de l'enfant"></canvas>
+            </div>
+            <table aria-label="Tableau de progression pour les parents">
+                <thead>
+                    <tr>
+                        <th>Compétence</th>
+                        <th>Progression</th>
+                    </tr>
+                </thead>
+                <tbody id="parent-table-body"></tbody>
+            </table>
+<div>
+    <button class="back-button" onclick="window.location.href='statistique.html'">Retour aux statistiques</button>
+</div>
+        </div>
+    </div>
+
+    <script>
+        const parentSkills = [
+            { id: 'recognizeLetters', label: 'Reconnaissance des lettres' },
+            { id: 'pronounceLetters', label: 'Prononciation des lettres' },
+            { id: 'recognizeWords', label: 'Reconnaissance des mots' },
+            { id: 'pronounceWords', label: 'Prononciation des mots' },
+            { id: 'recognizeNumbers', label: 'Reconnaissance des chiffres' },
+            { id: 'pronounceNumbers', label: 'Prononciation des chiffres' },
+            { id: 'recognizeShapes', label: 'Reconnaissance des formes' },
+            { id: 'pronounceShapes', label: 'Prononciation des formes' },
+            { id: 'recognizeColors', label: 'Reconnaissance des couleurs' },
+            { id: 'pronounceColors', label: 'Prononciation des couleurs' }
+        ];
+
+        const defaultChildrenData = {
+            child1: { name: 'Ahmad Ali', age: '6 ans', skills: {
+                recognizeLetters: { percentage: 76 }, pronounceLetters: { percentage: 80 },
+                recognizeWords: { percentage: 60 }, pronounceWords: { percentage: 69 },
+                recognizeNumbers: { percentage: 67 }, pronounceNumbers: { percentage: 77 },
+                recognizeShapes: { percentage: 72 }, pronounceShapes: { percentage: 68 },
+                recognizeColors: { percentage: 85 }, pronounceColors: { percentage: 90 }
+            }},
+            child2: { name: 'Layla Mohammed', age: '7 ans', skills: {
+                recognizeLetters: { percentage: 60 }, pronounceLetters: { percentage: 64 },
+                recognizeWords: { percentage: 55 }, pronounceWords: { percentage: 60 },
+                recognizeNumbers: { percentage: 71 }, pronounceNumbers: { percentage: 74 },
+                recognizeShapes: { percentage: 67 }, pronounceShapes: { percentage: 70 },
+                recognizeColors: { percentage: 80 }, pronounceColors: { percentage: 76 }
+            }},
+            child3: { name: 'Youssef Khaled', age: '5 ans', skills: {
+                recognizeLetters: { percentage: 50 }, pronounceLetters: { percentage: 55 },
+                recognizeWords: { percentage: 46 }, pronounceWords: { percentage: 49 },
+                recognizeNumbers: { percentage: 60 }, pronounceNumbers: { percentage: 64 },
+                recognizeShapes: { percentage: 55 }, pronounceShapes: { percentage: 50 },
+                recognizeColors: { percentage: 67 }, pronounceColors: { percentage: 73 }
+            }}
+        };
+
+        function getChildrenData() {
+            try {
+                const stored = localStorage.getItem('childrenData');
+                if (!stored) {
+                    localStorage.setItem('childrenData', JSON.stringify(defaultChildrenData));
+                    return defaultChildrenData;
+                }
+                return JSON.parse(stored);
+            } catch (e) {
+                console.error(e);
+                localStorage.setItem('childrenData', JSON.stringify(defaultChildrenData));
+                return defaultChildrenData;
+            }
+        }
+
+        function createChart(childData) {
+            const ctx = document.getElementById('parentsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: parentSkills.map(s => s.label),
+                    datasets: [{
+                        label: 'Taux de réussite (%)',
+                        data: parentSkills.map(s => childData.skills[s.id].percentage),
+                        backgroundColor: '#ff4081',
+                        borderColor: '#d81b60',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 100 } },
+                    plugins: { legend: { position: 'top' }, title: { display: true, text: 'Progression de l’enfant' } }
+                }
+            });
+        }
+
+        function generateParentTableRows(childData) {
+            return parentSkills.map(skill => {
+                const p = childData.skills[skill.id].percentage;
+                const cls = p >= 75 ? 'good' : p < 50 ? 'low' : 'medium';
+                return `<tr><td>${skill.label}</td><td>
+                    <div class="progress-bar"><div class="progress ${cls}" style="width: ${p}%"></div></div>${p}%
+                </td></tr>`;
+            }).join('');
+        }
+
+        function updateParentView() {
+            const childId = document.getElementById('child-select').value;
+            const data = getChildrenData()[childId];
+            document.getElementById('child-name').textContent = data.name;
+            document.getElementById('child-age').textContent = `Âge: ${data.age}`;
+            document.getElementById('parent-table-body').innerHTML = generateParentTableRows(data);
+
+            const canvas = document.getElementById('parentsChart');
+            if (canvas.chart) canvas.chart.destroy();
+            createChart(data);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateParentView);
+    </script>
+</body>
+</html>

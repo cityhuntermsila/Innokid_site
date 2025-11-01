@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="Statistiques Innokid : Suivi détaillé de l’évolution de votre enfant en arabe. Rapports pour parents et experts.">
+        <meta name="author" content="Innokid Team">
+
+        <title>Statistiques & Suivi | Innokid</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/tooplate-clean-work.css" rel="stylesheet">
+
+        <!-- Chart.js pour les graphiques -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <style>
+            .arabic-text { font-family: 'Amiri', serif; font-size: 1.4rem; }
+            .hero-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            .stat-card {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                text-align: center;
+                transition: transform 0.3s ease;
+            }
+            .stat-card:hover { transform: translateY(-8px); }
+            .stat-number { font-size: 2.8rem; font-weight: 700; color: #667eea; }
+            .progress-bar-custom {
+                height: 12px;
+                border-radius: 6px;
+                background: #e9ecef;
+            }
+            .progress-fill {
+                height: 100%;
+                border-radius: 6px;
+                background: linear-gradient(90deg, #667eea, #764ba2);
+                transition: width 1.5s ease;
+            }
+            .badge-level {
+                font-size: 0.9rem;
+                padding: 6px 14px;
+                border-radius: 50px;
+                font-weight: 600;
+            }
+            .timeline-item {
+                position: relative;
+                padding-left: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0.5rem;
+                width: 16px;
+                height: 16px;
+                background: #f39c12;
+                border-radius: 50%;
+                border: 4px solid white;
+                box-shadow: 0 0 0 3px #f39c12;
+            }
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                left: 7px;
+                top: 2rem;
+                bottom: -1.5rem;
+                width: 2px;
+                background: #ddd;
+            }
+            .timeline-item:last-child::after { display: none; }
+        </style>
+    </head>
+    
+    <body>
+
+        <!-- HEADER -->
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 d-flex flex-wrap">
+                        <p class="d-flex me-4 mb-0">
+                            <i class="bi-house-fill me-2"></i>
+                            Innokid : suivi précis et bienveillant de l’apprentissage
+                        </p>
+                        <p class="site-header-icon-wrap text-white d-flex mb-0 ms-auto">
+                            <i class="site-header-icon bi-whatsapp me-2"></i>
+                            <a href="https://wa.me/+213664726527" class="text-white">Contact WhatsApp</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAV -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/innokid-cube-logo.png" class="logo img-fluid" alt="Innokid Logo" style="max-height:50px;">
+                    <span class="ms-2">Innokid</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Fonctionnalités</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="statistique.html">Statistiques</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item ms-3"><a class="nav-link custom-btn custom-border-btn btn" href="index.html#beta">Rejoindre la Beta</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+
+            <!-- BANNER -->
+            <section class="banner-section d-flex justify-content-center align-items-end">
+                <div class="section-overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7 col-12">
+                            <h1 class="text-white mb-lg-0">Suivi & Statistiques</h1>
+                        </div>
+                        <div class="col-lg-4 col-12 d-flex justify-content-lg-end align-items-center ms-auto">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Statistiques</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTRODUCTION -->
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="mb-4">Un suivi précis pour chaque enfant</h2>
+                            <p class="lead">Innokid collecte des données en temps réel pour offrir aux <strong>parents</strong> et <strong>aux experts pédagogiques</strong> une vision claire de l’évolution linguistique.</p>
+                            <p>Pas de jugement, juste des <strong>encouragements personnalisés</strong> et des <strong>rapports exploitables</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATISTIQUES RAPIDES -->
+            <section class="section-padding bg-light">
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-number" id="words-learned">0</div>
+                                <p class="text-muted mb-0">Mots maîtrisés</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-number" id="sessions">0</div>
+                                <p class="text-muted mb-0">Sessions jouées</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-number text-success">45<span class="fs-5">%</span></div>
+                                <p class="text-muted mb-0">Précision moyenne</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-number text-info">10.2<span class="fs-5">h</span></div>
+                                <p class="text-muted mb-0">Temps de jeu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GRAPHIQUES -->
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 mb-5">
+                            <h4 class="mb-4">Progression hebdomadaire</h4>
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="col-lg-6 mb-5">
+                            <h4 class="mb-4">Maîtrise par catégorie</h4>
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AVANTAGES POUR LES PARENTS -->
+            <section class="section-padding bg-light">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h3 class="mb-4">Pour les parents</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> <strong>Rapports hebdomadaires</strong> envoyés par email</li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> <strong>Alertes personnalisées</strong> : "Ahmed a appris 12 nouveaux mots !"</li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> <strong>Comparaison bienveillante</strong> avec la moyenne d’âge</li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> <strong>Export PDF</strong> pour les enseignants ou orthophonistes</li>
+                            </ul>
+                            <a href="dashboard_parent.html#beta" class="custom-btn btn button button--atlas mt-3">
+                                <span>Voir un Exemple</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <img src="images/parent-dashboard-full.jpg" class="img-fluid rounded shadow" alt="Tableau de bord parent">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AVANTAGES POUR LES EXPERTS -->
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 text-center order-lg-2">
+                            <img src="images/expert-analysis.jpg" class="img-fluid rounded shadow" alt="Analyse experte">
+                        </div>
+                        <div class="col-lg-6 order-lg-1">
+                            <h3 class="mb-4">Pour les experts & enseignants</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi-check-circle-fill text-primary me-2"></i> <strong>Données brutes exportables</strong> (CSV, JSON)</li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-primary me-2"></i> <strong>Analyse phonétique détaillée</strong></li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-primary me-2"></i> <strong>Suivi multi-enfants</strong> (classe, mosquée)</li>
+                                <li class="mb-3"><i class="bi-check-circle-fill text-primary me-2"></i> <strong>Recommandations pédagogiques IA</strong></li>
+                            </ul>
+                            <a href="dashboard_expert.html" class="custom-btn btn button button--pan mt-3">
+                                <span> Voir un Exemple </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIMELINE D'APPRENTISSAGE -->
+            <section class="section-padding bg-light">
+                <div class="container">
+                    <h3 class="text-center mb-5">Exemple de parcours d’apprentissage</h3>
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="timeline-item">
+                                <h5><span class="badge-level bg-success text-white">Semaine 1</span> Découverte</h5>
+                                <p>Premiers lettre : أ، ب، ت</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h5><span class="badge-level bg-info text-white">Semaine 3</span> Construction</h5>
+                                <p>Premiers mots : كتاب، مدرسة، الماء</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h5><span class="badge-level bg-warning text-dark">Semaine 6</span> Prononciation</h5>
+                                <p>Dialogue spontané avec l’IA</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h5><span class="badge-level bg-danger text-white">Semaine 12</span> Construction de mots</h5>
+                                <p>Possibilité de Lecture fluide de mots et textes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER (identique) -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 d-flex align-items-center mb-4 pb-2">
+                        <div>
+                            <img src="images/innokid-cube-logo.png" class="logo img-fluid" alt="" style="max-height:50px;">
+                        </div>
+                        <ul class="footer-menu d-flex flex-wrap ms-5">
+                            <li class="footer-menu-item"><a href="about.html" class="footer-menu-link">À propos</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Blog</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Presse</a></li>
+                            <li class="footer-menu-item"><a href="contact.html" class="footer-menu-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-5 col-12 mb-4">
+                        <h5 class="site-footer-title mb-3">Liens utiles</h5>
+                        <ul class="footer-menu">
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Conditions d’utilisation</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Politique de confidentialité</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Support technique</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <h5 class="site-footer-title mb-3">Contact</h5>
+                        <p class="text-white d-flex mb-2">
+                            <i class="bi-envelope-fill me-2"></i>
+                            <a href="mailto:meryembenziane126@gmail.com" class="site-footer-link">meryembenziane126@gmail.com</a>
+                        </p>
+                        <ul class="social-icon mt-4">
+                            <li class="social-icon-item"><a href="#" class="social-icon-link button button--skoll"><span class="bi-instagram"></span></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link button button--skoll"><span class="bi-twitter"></span></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link button button--skoll"><span class="bi-whatsapp"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-12"><p class="copyright-text mb-0">© 2025 Innokid — Tous droits réservés.</p></div>
+                        <div class="col-lg-6 col-12 text-end"><p class="copyright-text mb-0">Made with <i class="bi-heart-fill text-danger"></i> pour les enfants</p></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- JS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+
+        <script>
+            // Animation des compteurs
+            function animateCounter(id, target, suffix = '') {
+                let count = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        document.getElementById(id).textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        document.getElementById(id).textContent = Math.floor(count) + suffix;
+                    }
+                }, 20);
+            }
+
+            // Lancer au chargement
+            window.addEventListener('load', () => {
+                animateCounter('words-learned', 156);
+                animateCounter('sessions', 42);
+            });
+
+            // Graphiques Chart.js
+            const progressCtx = document.getElementById('progressChart').getContext('2d');
+            new Chart(progressCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'],
+                    datasets: [{
+                        label: 'Mots appris',
+                        data: [5, 19, 38, 62, 98, 156],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Lettres', 'Mots simples', 'Phrases', 'Lecture'],
+                    datasets: [{
+                        data: [30, 40, 20, 10],
+                        backgroundColor: ['#667eea', '#764ba2', '#f39c12', '#28a745']
+                    }]
+                },
+                options: { responsive: true }
+            });
+
+            // Animation barres de progression
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                setTimeout(() => {
+                    bar.style.width = bar.dataset.width || '75%';
+                }, 500);
+            });
+        </script>
+
+    </body>
+</html>
